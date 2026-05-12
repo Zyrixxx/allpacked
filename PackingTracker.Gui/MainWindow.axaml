@@ -1,0 +1,1040 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1260" d:DesignHeight="820"
+        x:Class="PackingTracker.Gui.MainWindow"
+        Title="All Packed"
+        Width="1260"
+        Height="820"
+        MinWidth="1080"
+        MinHeight="720"
+        Background="#070A12">
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#F8FAFC" />
+        </Style>
+
+        <Style Selector="TextBlock.muted">
+            <Setter Property="Foreground" Value="#94A3B8" />
+        </Style>
+
+        <Style Selector="TextBlock.label">
+            <Setter Property="Foreground" Value="#CBD5E1" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+        </Style>
+
+        <Style Selector="TextBlock.cardTitle">
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="12,9" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.16" />
+                    <BrushTransition Property="Background" Duration="0:0:0.16" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="TextBox:focus">
+            <Setter Property="Background" Value="#0B1220" />
+            <Setter Property="BorderBrush" Value="#22D3EE" />
+        </Style>
+
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.16" />
+                    <BrushTransition Property="Background" Duration="0:0:0.16" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="ComboBox:focus">
+            <Setter Property="Background" Value="#0B1220" />
+            <Setter Property="BorderBrush" Value="#22D3EE" />
+        </Style>
+
+        <Style Selector="ComboBoxItem">
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="Foreground" Value="#E2E8F0" />
+            <Setter Property="MinHeight" Value="42" />
+            <Setter Property="Padding" Value="14,9" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.12" />
+                    <BrushTransition Property="Foreground" Duration="0:0:0.12" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="ComboBoxItem /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#E2E8F0" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Padding" Value="14,9" />
+        </Style>
+
+        <Style Selector="ComboBoxItem:pointerover">
+            <Setter Property="Background" Value="#172554" />
+            <Setter Property="Foreground" Value="#BFDBFE" />
+        </Style>
+
+        <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#ECFEFF" />
+        </Style>
+
+        <Style Selector="ComboBoxItem:selected">
+            <Setter Property="Background" Value="#052E2F" />
+            <Setter Property="Foreground" Value="#99F6E4" />
+        </Style>
+
+        <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#99F6E4" />
+        </Style>
+
+        <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#CCFBF1" />
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="12,9" />
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="RenderTransform" Value="translate(0px, 0px)" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.16" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.16" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.12" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.14" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button:pointerover">
+            <Setter Property="RenderTransform" Value="translate(0px, -1px)" />
+            <Setter Property="BorderBrush" Value="#67E8F9" />
+        </Style>
+
+        <Style Selector="Button:pressed">
+            <Setter Property="RenderTransform" Value="translate(0px, 1px)" />
+            <Setter Property="Opacity" Value="0.82" />
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#06B6D4" />
+            <Setter Property="BorderBrush" Value="#67E8F9" />
+            <Setter Property="Foreground" Value="#082F49" />
+        </Style>
+
+        <Style Selector="Button.success">
+            <Setter Property="Background" Value="#052E2F" />
+            <Setter Property="BorderBrush" Value="#2DD4BF" />
+            <Setter Property="Foreground" Value="#99F6E4" />
+        </Style>
+
+        <Style Selector="Button.danger">
+            <Setter Property="Background" Value="#3B0A1F" />
+            <Setter Property="BorderBrush" Value="#FB7185" />
+            <Setter Property="Foreground" Value="#FDA4AF" />
+        </Style>
+
+        <Style Selector="Button.icon">
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Button.icon.primary">
+            <Setter Property="Background" Value="#06B6D4" />
+            <Setter Property="BorderBrush" Value="#67E8F9" />
+            <Setter Property="Foreground" Value="#082F49" />
+        </Style>
+
+        <Style Selector="CheckBox">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="ScrollBar:vertical">
+            <Setter Property="Width" Value="12" />
+            <Setter Property="MinWidth" Value="12" />
+            <Setter Property="Background" Value="#0B1120" />
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="ScrollBar:vertical /template/ Thumb">
+            <Setter Property="Background" Value="#38BDF8" />
+            <Setter Property="MinHeight" Value="48" />
+        </Style>
+
+        <Style Selector="ScrollBar:vertical:pointerover /template/ Thumb">
+            <Setter Property="Background" Value="#67E8F9" />
+        </Style>
+
+        <Style Selector="Border.categoryHeader">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="Border.categoryHeader TextBlock">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="Border.categoryHeader Border">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="Border.sheet">
+            <Setter Property="Background" Value="#0F172A" />
+            <Setter Property="BorderBrush" Value="#1E293B" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.18" />
+                    <BrushTransition Property="Background" Duration="0:0:0.18" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.22" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.rail">
+            <Setter Property="Background" Value="#0A1020" />
+            <Setter Property="BorderBrush" Value="#1E293B" />
+            <Setter Property="BorderThickness" Value="0,0,1,0" />
+        </Style>
+
+        <Style Selector="Border.boardCard">
+            <Setter Property="Background" Value="#0B1120" />
+            <Setter Property="BorderBrush" Value="#243044" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="RenderTransform" Value="translate(0px, 0px)" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.18" />
+                    <BrushTransition Property="Background" Duration="0:0:0.18" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.18" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.boardCard:pointerover">
+            <Setter Property="Background" Value="#101A2D" />
+            <Setter Property="BorderBrush" Value="#67E8F9" />
+        </Style>
+
+        <Style Selector="Border.itemRow">
+            <Setter Property="Background" Value="#0F172A" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.14" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.itemRow:pointerover">
+            <Setter Property="Background" Value="#162033" />
+            <Setter Property="BorderBrush" Value="#67E8F9" />
+        </Style>
+
+        <Style Selector="Border.statusPill.unpacked">
+            <Setter Property="Background" Value="#3B0A1F" />
+            <Setter Property="BorderBrush" Value="#FB7185" />
+        </Style>
+
+        <Style Selector="Border.statusPill.packed">
+            <Setter Property="Background" Value="#052E2F" />
+            <Setter Property="BorderBrush" Value="#2DD4BF" />
+        </Style>
+
+        <Style Selector="TextBlock.statusText.unpacked">
+            <Setter Property="Foreground" Value="#FDA4AF" />
+        </Style>
+
+        <Style Selector="TextBlock.statusText.packed">
+            <Setter Property="Foreground" Value="#99F6E4" />
+        </Style>
+
+        <Style Selector="ProgressBar">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Value" Duration="0:0:0.42" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.celebrationBanner">
+            <Setter Property="Background" Value="#102A43" />
+            <Setter Property="BorderBrush" Value="#22D3EE" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.24" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.24" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Border.statusToast">
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.18" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.18" />
+                </Transitions>
+            </Setter>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="72,*"
+          Background="#070A12">
+        <Border Background="#0B1120"
+                BorderBrush="#1E293B"
+                BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="Auto,*"
+                  Margin="26,0"
+                  ColumnSpacing="22">
+                <StackPanel Orientation="Horizontal"
+                            Spacing="14"
+                            VerticalAlignment="Center">
+                    <Border Width="46"
+                            Height="46"
+                            Background="#101827"
+                            BorderBrush="#22D3EE"
+                            BorderThickness="1"
+                            CornerRadius="14">
+                        <Grid>
+                            <Border Width="26"
+                                    Height="24"
+                                    Background="#164E63"
+                                    BorderBrush="#67E8F9"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <Path Width="15"
+                                      Height="11"
+                                      Stretch="Uniform"
+                                      Stroke="#ECFEFF"
+                                      StrokeThickness="2"
+                                      StrokeLineCap="Round"
+                                      StrokeJoin="Round"
+                                      Data="M2,6 L6,10 L13,2"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                            </Border>
+                            <Border Width="13"
+                                    Height="5"
+                                    BorderBrush="#67E8F9"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    Margin="0,9,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top" />
+                        </Grid>
+                    </Border>
+                    <StackPanel Spacing="2"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="All Packed"
+                                   FontSize="20"
+                                   FontWeight="Bold" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Grid Grid.Column="1"
+                      ColumnDefinitions="*,Auto"
+                      ColumnSpacing="16"
+                      VerticalAlignment="Center">
+                    <Grid ColumnDefinitions="*,14,54,14,132,6,98"
+                          ColumnSpacing="0"
+                          MaxWidth="560"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center">
+                        <TextBox x:Name="ItemNameBox"
+                                 Height="38"
+                                 PlaceholderText="Passport, charger, sunglasses"
+                                 ToolTip.Tip="Item name" />
+
+                        <TextBox Grid.Column="2"
+                                 x:Name="QuantityBox"
+                                 Height="38"
+                                 Text="1"
+                                 ToolTip.Tip="Quantity" />
+
+                        <ComboBox Grid.Column="4"
+                                  x:Name="CategoryBox"
+                                  Height="38"
+                                  SelectedIndex="0"
+                                  ToolTip.Tip="Category" />
+
+                        <Button Grid.Column="6"
+                                Classes="success"
+                                Content="Add Item"
+                                Height="38"
+                                Padding="8,0"
+                                MinWidth="0"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                ToolTip.Tip="Add item"
+                                Click="AddItem_Click" />
+                    </Grid>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="12"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <Border Background="#052E2F"
+                                BorderBrush="#2DD4BF"
+                                BorderThickness="1"
+                                CornerRadius="999"
+                                Padding="14,7">
+                            <TextBlock x:Name="PackedCountText"
+                                       Text="0 / 0 packed"
+                                       Foreground="#99F6E4"
+                                       FontWeight="SemiBold" />
+                        </Border>
+                        <Border Background="#231942"
+                                BorderBrush="#A78BFA"
+                                BorderThickness="1"
+                                CornerRadius="999"
+                                Padding="14,7">
+                            <TextBlock x:Name="ProgressText"
+                                       Text="0%"
+                                       Foreground="#DDD6FE"
+                                       FontWeight="Bold" />
+                        </Border>
+                        <Border x:Name="CompletionBanner"
+                                Classes="celebrationBanner"
+                                IsVisible="False"
+                                Padding="10,6"
+                                VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8"
+                                        VerticalAlignment="Center">
+                                <Border Width="24"
+                                        Height="24"
+                                        Background="#22D3EE"
+                                        CornerRadius="999">
+                                    <Path Width="13"
+                                          Height="13"
+                                          Stretch="Uniform"
+                                          Fill="#083344"
+                                          Data="M5,18 L11,24 L27,8 L30,11 L11,30 L2,21 Z"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="Everything is packed."
+                                           Foreground="#ECFEFF"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <Grid x:Name="BodyGrid"
+              Grid.Row="1"
+              ColumnDefinitions="320,*">
+            <Border x:Name="SidebarRail"
+                    Classes="rail"
+                    Padding="24">
+                <Grid>
+                    <Grid x:Name="ExpandedSidebar"
+                          RowDefinitions="Auto,Auto,*"
+                          RowSpacing="22">
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="10">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="CURRENT PROFILE"
+                                           Foreground="#67E8F9"
+                                           FontSize="12"
+                                           FontWeight="SemiBold" />
+                                <TextBlock x:Name="ProfileNameText"
+                                           Text="Default"
+                                           Foreground="#FFFFFF"
+                                           FontSize="30"
+                                           FontWeight="Bold"
+                                           TextTrimming="CharacterEllipsis" />
+                                <StackPanel Orientation="Horizontal"
+                                            Spacing="8">
+                                    <Border Background="#052E2F"
+                                            BorderBrush="#2DD4BF"
+                                            BorderThickness="1"
+                                            CornerRadius="999"
+                                            Padding="10,5">
+                                        <TextBlock x:Name="ProfileItemCountText"
+                                                   Text="0 items"
+                                                   Foreground="#99F6E4"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold" />
+                                    </Border>
+                                    <Border Background="#231942"
+                                            BorderBrush="#A78BFA"
+                                            BorderThickness="1"
+                                            CornerRadius="999"
+                                            Padding="10,5">
+                                        <TextBlock x:Name="ProfilePackedCountText"
+                                                   Text="0 packed"
+                                                   Foreground="#DDD6FE"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold" />
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Button Grid.Column="1"
+                                    Classes="icon"
+                                    Width="34"
+                                    Height="34"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    ToolTip.Tip="Collapse sidebar"
+                                    Click="ToggleSidebar_Click">
+                                <Path Width="18"
+                                      Height="14"
+                                      Stretch="Uniform"
+                                      Stroke="#CBD5E1"
+                                      StrokeThickness="2"
+                                      StrokeLineCap="Round"
+                                      Data="M2,2 L16,2 M2,7 L16,7 M2,12 L16,12"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                            </Button>
+                        </Grid>
+
+                        <Border Grid.Row="1"
+                                Background="#111827"
+                                BorderBrush="#263247"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="16">
+                            <StackPanel Spacing="16">
+                                <TextBlock Text="Profiles"
+                                           Foreground="#FFFFFF"
+                                           FontSize="16"
+                                           FontWeight="SemiBold" />
+
+                                <StackPanel>
+                                    <TextBlock Text="Saved profiles"
+                                               Classes="label" />
+                                    <ComboBox x:Name="ProfilesBox"
+                                              PlaceholderText="Select profile"
+                                              HorizontalAlignment="Stretch" />
+                                </StackPanel>
+
+                                <Grid ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="10">
+                                    <Button Content="Load"
+                                            HorizontalAlignment="Stretch"
+                                            Click="LoadSelectedProfile_Click" />
+                                    <Button Grid.Column="1"
+                                            Classes="danger"
+                                            Content="Delete"
+                                            Click="DeleteSelectedProfile_Click" />
+                                </Grid>
+
+                                <StackPanel>
+                                    <TextBlock Text="Profile name"
+                                               Classes="label" />
+                                    <TextBox x:Name="ProfileNameBox"
+                                             PlaceholderText="Summer trip" />
+                                </StackPanel>
+                                <Button Content="Load / Create Profile"
+                                        HorizontalAlignment="Stretch"
+                                        Click="LoadProfile_Click" />
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Grid.Row="2"
+                                    Spacing="8"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom">
+                            <TextBlock x:Name="SaveStateText"
+                                       Text="Autosaves"
+                                       IsVisible="False" />
+                            <Button Content="Save"
+                                    Width="76"
+                                    MinWidth="0"
+                                    Padding="10,8"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    ToolTip.Tip="Save profile"
+                                    Click="Save_Click" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="CollapsedSidebar"
+                          IsVisible="False"
+                          HorizontalAlignment="Stretch"
+                          RowDefinitions="Auto,*,Auto">
+                        <StackPanel Spacing="16"
+                                    Width="72"
+                                    HorizontalAlignment="Center">
+                            <Button Classes="icon"
+                                    Width="34"
+                                    Height="34"
+                                    HorizontalAlignment="Center"
+                                    ToolTip.Tip="Expand sidebar"
+                                    Click="ToggleSidebar_Click">
+                                <Path Width="18"
+                                      Height="14"
+                                      Stretch="Uniform"
+                                      Stroke="#CBD5E1"
+                                      StrokeThickness="2"
+                                      StrokeLineCap="Round"
+                                      Data="M2,2 L16,2 M2,7 L16,7 M2,12 L16,12"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                            </Button>
+
+                            <Border Width="42"
+                                    Height="42"
+                                    Background="#052E2F"
+                                    BorderBrush="#2DD4BF"
+                                    BorderThickness="1"
+                                    CornerRadius="12">
+                                <TextBlock x:Name="CollapsedProfileInitialText"
+                                           Text="D"
+                                           Foreground="#99F6E4"
+                                           FontWeight="Bold"
+                                           FontSize="18"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Border>
+
+                            <StackPanel Spacing="4"
+                                        HorizontalAlignment="Center">
+                                <TextBlock x:Name="CollapsedItemCountText"
+                                           Text="0"
+                                           Foreground="#99F6E4"
+                                           FontWeight="Bold"
+                                           FontSize="18"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="items"
+                                           Classes="muted"
+                                           FontSize="10"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel Spacing="4"
+                                        HorizontalAlignment="Center">
+                                <TextBlock x:Name="CollapsedPackedCountText"
+                                           Text="0"
+                                           Foreground="#DDD6FE"
+                                           FontWeight="Bold"
+                                           FontSize="18"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="packed"
+                                           Classes="muted"
+                                           FontSize="10"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Button Grid.Row="2"
+                                Classes="icon"
+                                Width="34"
+                                Height="34"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom"
+                                ToolTip.Tip="Save profile"
+                                Click="Save_Click">
+                            <Path Width="16"
+                                  Height="16"
+                                  Stretch="Uniform"
+                                  Fill="#99F6E4"
+                                  Data="M5,3 L18,3 L21,6 L21,21 L3,21 L3,3 Z M7,5 L7,10 L16,10 L16,5 Z M7,16 L17,16 L17,21 L7,21 Z" />
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1"
+                  RowDefinitions="*"
+                  Margin="28,22,28,28">
+                <Border Grid.Row="0"
+                        Classes="sheet"
+                        Padding="18">
+                    <Grid RowDefinitions="Auto,Auto,*"
+                          RowSpacing="14">
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="16">
+                            <StackPanel Spacing="3"
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="Packing List"
+                                           Foreground="#F8FAFC"
+                                           FontSize="21"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="Check off items as they go into the bag."
+                                           Classes="muted"
+                                           FontSize="12" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        Spacing="10"
+                                        VerticalAlignment="Center">
+                                <Button Classes="success"
+                                        Content="Pack All"
+                                        Padding="12,7"
+                                        Click="PackAllVisible_Click" />
+                                <Button Classes="danger"
+                                        Content="Unpack All"
+                                        Padding="12,7"
+                                        Click="UnpackAllVisible_Click" />
+                                <Button Content="Expand All"
+                                        Padding="12,7"
+                                        Click="ExpandAllCategories_Click" />
+                                <Button Content="Collapse All"
+                                        Padding="12,7"
+                                        Click="CollapseAllCategories_Click" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="1"
+                              ColumnDefinitions="*,150,96"
+                              RowDefinitions="Auto,42"
+                              ColumnSpacing="12"
+                              RowSpacing="6">
+                            <TextBlock Text="Search"
+                                       Classes="label" />
+                            <TextBox Grid.Row="1"
+                                     x:Name="SearchBox"
+                                     Height="42"
+                                     PlaceholderText="Find an item or category"
+                                     TextChanged="SearchBox_TextChanged" />
+
+                            <TextBlock Grid.Column="1"
+                                       Text="Show"
+                                       Classes="label" />
+                            <ComboBox Grid.Row="1"
+                                      Grid.Column="1"
+                                      x:Name="StatusFilterBox"
+                                      Width="150"
+                                      Height="42"
+                                      SelectedIndex="0"
+                                      SelectionChanged="StatusFilterBox_SelectionChanged">
+                                <ComboBoxItem Content="All items" />
+                                <ComboBoxItem Content="Unpacked" />
+                                <ComboBoxItem Content="Packed" />
+                            </ComboBox>
+
+                            <Button Grid.Row="1"
+                                    Grid.Column="2"
+                                    Classes="danger"
+                                    Content="Clear"
+                                    Width="96"
+                                    Height="42"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Click="ClearFilters_Click" />
+                        </Grid>
+
+                        <Grid Grid.Row="2">
+                            <Border x:Name="EmptyStatePanel"
+                                    Padding="32"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
+                                <Grid RowDefinitions="*,Auto,*">
+                                    <StackPanel Grid.Row="1"
+                                                Spacing="12"
+                                                HorizontalAlignment="Center">
+                                        <Border Width="72"
+                                                Height="72"
+                                                Background="#172554"
+                                                BorderBrush="#60A5FA"
+                                                BorderThickness="1"
+                                                CornerRadius="18"
+                                                HorizontalAlignment="Center"
+                                                RenderTransform="scale(1)">
+                                            <Path Width="34"
+                                                  Height="34"
+                                                  Stretch="Uniform"
+                                                  Fill="#60A5FA"
+                                                  Data="M5,18 L11,24 L27,8 L30,11 L11,30 L2,21 Z"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                                        </Border>
+                                        <TextBlock x:Name="EmptyStateTitle"
+                                                   Text="Start this packing list"
+                                                   FontSize="26"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBlock x:Name="EmptyStateHint"
+                                                   Text="Use the item bar in the header to add the first thing you need to bring."
+                                                   Classes="muted"
+                                                   FontSize="14"
+                                                   HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <ScrollViewer>
+                                <ItemsControl x:Name="CategoryGroupsList"
+                                              Margin="0,6,18,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Classes="boardCard"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="0,0,0,14"
+                                            Padding="0"
+                                            ClipToBounds="True">
+                                        <Grid RowDefinitions="Auto,*">
+                                            <Border Background="{Binding AccentBrush}"
+                                                    Classes="categoryHeader"
+                                                    CornerRadius="{Binding HeaderCornerRadius}"
+                                                    Padding="18,16"
+                                                    PointerPressed="ToggleCategory_Click"
+                                                    ToolTip.Tip="{Binding ToggleToolTip}">
+                                                <Grid RowDefinitions="Auto,Auto"
+                                                      RowSpacing="12">
+                                                    <Grid ColumnDefinitions="*,Auto,Auto"
+                                                          ColumnSpacing="12">
+                                                        <TextBlock Text="{Binding Category}"
+                                                                   Foreground="#FFFFFF"
+                                                                   FontSize="22"
+                                                                   FontWeight="Bold"
+                                                                   Cursor="Hand" />
+                                                        <Border Grid.Column="1"
+                                                                Background="#33FFFFFF"
+                                                                CornerRadius="999"
+                                                                Padding="12,5"
+                                                                VerticalAlignment="Center"
+                                                                Cursor="Hand">
+                                                            <TextBlock Text="{Binding CountLabel}"
+                                                                       Foreground="#FFFFFF"
+                                                                       FontSize="13"
+                                                                       FontWeight="SemiBold"
+                                                                       Cursor="Hand" />
+                                                        </Border>
+                                                        <Border Grid.Column="2"
+                                                                Background="#33FFFFFF"
+                                                                CornerRadius="999"
+                                                                Width="32"
+                                                                Height="32"
+                                                                VerticalAlignment="Center"
+                                                                Cursor="Hand">
+                                                            <TextBlock Text="{Binding ToggleGlyph}"
+                                                                       Foreground="#FFFFFF"
+                                                                       FontSize="16"
+                                                                       FontWeight="Bold"
+                                                                       HorizontalAlignment="Center"
+                                                                       VerticalAlignment="Center"
+                                                                       Cursor="Hand" />
+                                                        </Border>
+                                                    </Grid>
+
+                                                    <Grid Grid.Row="1"
+                                                          ColumnDefinitions="*,Auto"
+                                                          ColumnSpacing="10">
+                                                        <ProgressBar Minimum="0"
+                                                                     Maximum="100"
+                                                                     Value="{Binding ProgressPercent}"
+                                                                     Height="8"
+                                                                     Foreground="#E0F2FE"
+                                                                     Background="#33FFFFFF"
+                                                                     VerticalAlignment="Center" />
+                                                        <TextBlock Grid.Column="1"
+                                                                   Text="{Binding ProgressLabel}"
+                                                                   Foreground="#FFFFFF"
+                                                                   FontSize="13"
+                                                                   FontWeight="SemiBold"
+                                                                   VerticalAlignment="Center"
+                                                                   Cursor="Hand" />
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+
+                                            <ItemsControl Grid.Row="1"
+                                                          ItemsSource="{Binding Items}"
+                                                          IsVisible="{Binding IsExpanded}"
+                                                          Margin="14">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Classes="itemRow"
+                                                                Padding="14"
+                                                                Margin="0,0,0,12"
+                                                                MinHeight="74">
+                                                            <Grid ColumnDefinitions="44,*,88,112,42,42"
+                                                                  ColumnSpacing="12">
+                                                                <CheckBox IsChecked="{Binding IsPacked, Mode=TwoWay}"
+                                                                          Width="26"
+                                                                          Height="26"
+                                                                          Padding="0"
+                                                                          HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center" />
+
+                                                                <StackPanel Grid.Column="1"
+                                                                            Spacing="5"
+                                                                            VerticalAlignment="Center">
+                                                                    <TextBlock Text="{Binding Name}"
+                                                                               Foreground="#F8FAFC"
+                                                                               FontSize="17"
+                                                                               FontWeight="SemiBold"
+                                                                               TextTrimming="CharacterEllipsis" />
+                                                                    <TextBlock Classes="muted"
+                                                                               FontSize="12"
+                                                                               Text="{Binding Category}" />
+                                                                </StackPanel>
+
+                                                                <Border Grid.Column="2"
+                                                                        Background="#052E2F"
+                                                                        BorderBrush="#2DD4BF"
+                                                                        BorderThickness="1"
+                                                                        CornerRadius="999"
+                                                                        Padding="10,6"
+                                                                        VerticalAlignment="Center">
+                                                                    <TextBlock Foreground="#99F6E4"
+                                                                               FontSize="12"
+                                                                               FontWeight="SemiBold"
+                                                                               HorizontalAlignment="Center">
+                                                                        <Run Text="Qty " />
+                                                                        <Run Text="{Binding Quantity}" />
+                                                                    </TextBlock>
+                                                                </Border>
+
+                                                                <Border Grid.Column="3"
+                                                                        Classes="statusPill"
+                                                                        Classes.packed="{Binding IsPacked}"
+                                                                        Classes.unpacked="{Binding IsUnpacked}"
+                                                                        BorderThickness="1"
+                                                                        CornerRadius="999"
+                                                                        Padding="10,6"
+                                                                        VerticalAlignment="Center">
+                                                                    <TextBlock Text="{Binding PackedStatus}"
+                                                                               Classes="statusText"
+                                                                               Classes.packed="{Binding IsPacked}"
+                                                                               Classes.unpacked="{Binding IsUnpacked}"
+                                                                               FontSize="12"
+                                                                               FontWeight="SemiBold"
+                                                                               HorizontalAlignment="Center" />
+                                                                </Border>
+
+                                                                <Button Grid.Column="4"
+                                                                        Classes="icon"
+                                                                        Width="42"
+                                                                        Height="42"
+                                                                        Click="EditItem_Click"
+                                                                        ToolTip.Tip="Edit item"
+                                                                        HorizontalAlignment="Center"
+                                                                        VerticalAlignment="Center">
+                                                                    <Path Width="15"
+                                                                          Height="15"
+                                                                          Stretch="Uniform"
+                                                                          Fill="#67E8F9"
+                                                                          Data="M4,17 L4,21 L8,21 L19,10 L15,6 L4,17 M16,5 L18,3 L22,7 L20,9 Z" />
+                                                                </Button>
+
+                                                                <Button Grid.Column="5"
+                                                                        Classes="icon danger"
+                                                                        Width="42"
+                                                                        Height="42"
+                                                                        Click="DeleteItem_Click"
+                                                                        ToolTip.Tip="Delete item"
+                                                                        HorizontalAlignment="Center"
+                                                                        VerticalAlignment="Center">
+                                                                    <Path Width="15"
+                                                                          Height="15"
+                                                                          Stretch="Uniform"
+                                                                          Fill="#FDA4AF"
+                                                                          Data="M6,7 L18,7 M9,7 L9,5 L15,5 L15,7 M8,9 L9,19 L15,19 L16,9 M11,10 L11,18 M13,10 L13,18" />
+                                                                </Button>
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Border x:Name="StatusToast"
+                        Grid.Row="0"
+                        Classes="statusToast"
+                        IsVisible="False"
+                        Padding="14"
+                        MaxWidth="430"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
+                    <Grid ColumnDefinitions="*,Auto"
+                          ColumnSpacing="12">
+                        <TextBlock x:Name="StatusText"
+                                   Text="Ready."
+                                   Classes="muted"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center" />
+                        <Button x:Name="UndoDeleteButton"
+                                Grid.Column="1"
+                                Content="Undo"
+                                Classes="primary"
+                                IsVisible="False"
+                                Padding="12,7"
+                                VerticalAlignment="Center"
+                                Click="UndoDelete_Click" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

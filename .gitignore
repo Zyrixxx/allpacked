@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+
+.vs/
+.vscode/
+.env
+*.user
+*.suo
+.DS_Store
+.smoke/
+artifacts/
+
+data/*.txt
+data/*.db
+data/*.db-shm
+data/*.db-wal
