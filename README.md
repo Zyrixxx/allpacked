@@ -8,7 +8,8 @@ Built with Avalonia and .NET, it stores lists locally in SQLite so your packing 
 
 - Create and switch between saved packing profiles, such as different trips or people.
 - Add items with quantities and categories.
-- Check items off as packed, or bulk mark the visible list as packed or unpacked.
+- Check items off as packed, with progress based on item quantities.
+- Bulk mark the visible list as packed or unpacked.
 - Search by item or category, then filter by all, packed, or unpacked items.
 - Expand and collapse category groups to keep long lists manageable.
 - Edit items, delete items, and undo the most recent item deletion.
@@ -61,17 +62,23 @@ All Packed saves data locally in `all-packed.db`.
 
 The database is intentionally ignored by git. Replacing or rebuilding the app should not delete saved packing lists as long as the storage folder and database name stay the same.
 
-## Project Structure
+## Roadmap
 
-```text
-PackingTracker.sln
-PackingTracker.Gui/
-  Program.cs              # Avalonia desktop startup
-  App.axaml.cs            # Creates MainWindow
-  MainWindow.axaml        # Main UI
-  MainWindow.axaml.cs     # UI state, profiles, categories, and event handlers
-  PackingStorage.cs       # SQLite persistence and legacy text migration
-  PackingItem.cs          # Observable item model
-```
+Near-term polish:
 
-There are currently no test projects. Use `dotnet build PackingTracker.sln` as the primary verification step.
+- Package a fresh Mac `.app` build from the current source.
+- Add a real app icon and review window/app metadata.
+- Manually test a clean install, existing saved data, and the packaged app workflow.
+
+Accessibility and layout:
+
+- Improve keyboard navigation and shortcuts, such as `Enter` to add an item and `Cmd+S` to save.
+- Review focus states, tooltips, labels, and screen-reader friendliness.
+- Make the layout more responsive for smaller windows and future tablet-style screen sizes.
+
+Future feature ideas:
+
+- Add import/export or backup for packing profiles.
+- Add optional category management.
+- Add drag-and-drop item ordering.
+- Explore a more modern multi-page or tabbed layout if the app grows beyond the single-dashboard workflow.

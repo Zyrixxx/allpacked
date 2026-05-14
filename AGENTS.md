@@ -8,9 +8,9 @@
 
 ## Architecture
 - This is a single Avalonia desktop app named "All Packed"; `PackingTracker.sln` only includes `PackingTracker.Gui` and maps x86/x64 solution configs to `Any CPU`.
-- Startup flow is `Program.cs` -> `App.axaml.cs` -> `MainWindow`; the UI is primarily `MainWindow.axaml` with code-behind in `MainWindow.axaml.cs`.
-- There is no MVVM layer in the current code. `MainWindow.axaml.cs` owns profiles, categories, item state, dashboard refreshes, and event handlers.
-- Persistence is centralized in `PackingStorage.cs` using `Microsoft.Data.Sqlite`; `PackingItem.cs` is the observable item model.
+- Startup flow is `Program.cs` -> `App.axaml.cs` -> `MainWindow`; `MainWindow.axaml.cs` stays thin and creates `MainWindowViewModel` as the `DataContext`.
+- The app now follows a lightweight MVVM structure. `MainWindow.axaml` binds to ViewModel properties/commands, `MainWindowViewModel.cs` owns profiles, filters, item state, and dashboard refreshes, and row/card behavior lives in `PackingItemViewModel.cs` and `CategoryGroupViewModel.cs`.
+- Persistence is centralized in `PackingStorage.cs` using `Microsoft.Data.Sqlite`; `PackingItem.cs` is the plain storage model, while ViewModels convert to/from it.
 
 ## Persistence Gotchas
 - When running from this repo or build output, `PackingStorage.GetStorageDirectory()` walks upward for `PackingTracker.sln` and writes to repo-root `data/`.

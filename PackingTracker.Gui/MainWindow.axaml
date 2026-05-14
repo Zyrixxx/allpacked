@@ -186,6 +186,38 @@
             <Setter Property="Foreground" Value="#082F49" />
         </Style>
 
+        <Style Selector="Button.categoryHeaderButton">
+            <Setter Property="Padding" Value="18,16" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="RenderTransform" Value="translate(0px, 0px)" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.categoryHeaderButton:pointerover">
+            <Setter Property="RenderTransform" Value="translate(0px, 0px)" />
+        </Style>
+
+        <Style Selector="Button.categoryHeaderButton:pressed">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="RenderTransform" Value="translate(0px, 0px)" />
+        </Style>
+
         <Style Selector="CheckBox">
             <Setter Property="Cursor" Value="Hand" />
         </Style>
@@ -204,18 +236,6 @@
 
         <Style Selector="ScrollBar:vertical:pointerover /template/ Thumb">
             <Setter Property="Background" Value="#67E8F9" />
-        </Style>
-
-        <Style Selector="Border.categoryHeader">
-            <Setter Property="Cursor" Value="Hand" />
-        </Style>
-
-        <Style Selector="Border.categoryHeader TextBlock">
-            <Setter Property="Cursor" Value="Hand" />
-        </Style>
-
-        <Style Selector="Border.categoryHeader Border">
-            <Setter Property="Cursor" Value="Hand" />
         </Style>
 
         <Style Selector="Border.sheet">
@@ -302,20 +322,6 @@
             </Setter>
         </Style>
 
-        <Style Selector="Border.celebrationBanner">
-            <Setter Property="Background" Value="#102A43" />
-            <Setter Property="BorderBrush" Value="#22D3EE" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="CornerRadius" Value="999" />
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="Transitions">
-                <Transitions>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.24" />
-                    <BrushTransition Property="BorderBrush" Duration="0:0:0.24" />
-                </Transitions>
-            </Setter>
-        </Style>
-
         <Style Selector="Border.statusToast">
             <Setter Property="Background" Value="#111827" />
             <Setter Property="BorderBrush" Value="#334155" />
@@ -395,21 +401,20 @@
                           MaxWidth="560"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Center">
-                        <TextBox x:Name="ItemNameBox"
-                                 Height="38"
-                                 PlaceholderText="Passport, charger, sunglasses"
-                                 ToolTip.Tip="Item name" />
+                        <TextBox Height="38"
+                                  Text="{Binding NewItemName, Mode=TwoWay}"
+                                  PlaceholderText="Passport, charger, sunglasses"
+                                  ToolTip.Tip="Item name" />
 
                         <TextBox Grid.Column="2"
-                                 x:Name="QuantityBox"
-                                 Height="38"
-                                 Text="1"
-                                 ToolTip.Tip="Quantity" />
+                                  Height="38"
+                                  Text="{Binding QuantityText, Mode=TwoWay}"
+                                  ToolTip.Tip="Quantity" />
 
                         <ComboBox Grid.Column="4"
-                                  x:Name="CategoryBox"
                                   Height="38"
-                                  SelectedIndex="0"
+                                  ItemsSource="{Binding Categories}"
+                                  SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
                                   ToolTip.Tip="Category" />
 
                         <Button Grid.Column="6"
@@ -421,7 +426,7 @@
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 ToolTip.Tip="Add item"
-                                Click="AddItem_Click" />
+                                Command="{Binding AddItemCommand}" />
                     </Grid>
 
                     <StackPanel Grid.Column="1"
@@ -434,47 +439,36 @@
                                 BorderThickness="1"
                                 CornerRadius="999"
                                 Padding="14,7">
-                            <TextBlock x:Name="PackedCountText"
-                                       Text="0 / 0 packed"
-                                       Foreground="#99F6E4"
-                                       FontWeight="SemiBold" />
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8"
+                                        VerticalAlignment="Center">
+                                <Border Width="18"
+                                        Height="18"
+                                        Background="#2DD4BF"
+                                        CornerRadius="999"
+                                        IsVisible="{Binding IsEverythingPacked}">
+                                    <Path Width="10"
+                                          Height="10"
+                                          Stretch="Uniform"
+                                          Fill="#052E2F"
+                                          Data="M5,18 L11,24 L27,8 L30,11 L11,30 L2,21 Z"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                                </Border>
+                                <TextBlock Text="{Binding PackedCountText}"
+                                           Foreground="#99F6E4"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
                         </Border>
                         <Border Background="#231942"
                                 BorderBrush="#A78BFA"
                                 BorderThickness="1"
                                 CornerRadius="999"
                                 Padding="14,7">
-                            <TextBlock x:Name="ProgressText"
-                                       Text="0%"
+                            <TextBlock Text="{Binding ProgressText}"
                                        Foreground="#DDD6FE"
                                        FontWeight="Bold" />
-                        </Border>
-                        <Border x:Name="CompletionBanner"
-                                Classes="celebrationBanner"
-                                IsVisible="False"
-                                Padding="10,6"
-                                VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal"
-                                        Spacing="8"
-                                        VerticalAlignment="Center">
-                                <Border Width="24"
-                                        Height="24"
-                                        Background="#22D3EE"
-                                        CornerRadius="999">
-                                    <Path Width="13"
-                                          Height="13"
-                                          Stretch="Uniform"
-                                          Fill="#083344"
-                                          Data="M5,18 L11,24 L27,8 L30,11 L11,30 L2,21 Z"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
-                                </Border>
-                                <TextBlock Text="Everything is packed."
-                                           Foreground="#ECFEFF"
-                                           FontSize="13"
-                                           FontWeight="SemiBold"
-                                           VerticalAlignment="Center" />
-                            </StackPanel>
                         </Border>
                     </StackPanel>
                 </Grid>
@@ -482,14 +476,16 @@
             </Grid>
         </Border>
 
-        <Grid x:Name="BodyGrid"
-              Grid.Row="1"
-              ColumnDefinitions="320,*">
-            <Border x:Name="SidebarRail"
-                    Classes="rail"
-                    Padding="24">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding SidebarWidth}" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Classes="rail"
+                    Padding="{Binding SidebarPadding}">
                 <Grid>
-                    <Grid x:Name="ExpandedSidebar"
+                    <Grid IsVisible="{Binding IsExpandedSidebarVisible}"
                           RowDefinitions="Auto,Auto,*"
                           RowSpacing="22">
                         <Grid ColumnDefinitions="*,Auto"
@@ -499,8 +495,7 @@
                                            Foreground="#67E8F9"
                                            FontSize="12"
                                            FontWeight="SemiBold" />
-                                <TextBlock x:Name="ProfileNameText"
-                                           Text="Default"
+                                <TextBlock Text="{Binding ProfileName}"
                                            Foreground="#FFFFFF"
                                            FontSize="30"
                                            FontWeight="Bold"
@@ -512,8 +507,7 @@
                                             BorderThickness="1"
                                             CornerRadius="999"
                                             Padding="10,5">
-                                        <TextBlock x:Name="ProfileItemCountText"
-                                                   Text="0 items"
+                                        <TextBlock Text="{Binding ProfileItemCountText}"
                                                    Foreground="#99F6E4"
                                                    FontSize="12"
                                                    FontWeight="SemiBold" />
@@ -523,8 +517,7 @@
                                             BorderThickness="1"
                                             CornerRadius="999"
                                             Padding="10,5">
-                                        <TextBlock x:Name="ProfilePackedCountText"
-                                                   Text="0 packed"
+                                        <TextBlock Text="{Binding ProfilePackedCountText}"
                                                    Foreground="#DDD6FE"
                                                    FontSize="12"
                                                    FontWeight="SemiBold" />
@@ -539,7 +532,7 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     ToolTip.Tip="Collapse sidebar"
-                                    Click="ToggleSidebar_Click">
+                                    Command="{Binding ToggleSidebarCommand}">
                                 <Path Width="18"
                                       Height="14"
                                       Stretch="Uniform"
@@ -567,7 +560,8 @@
                                 <StackPanel>
                                     <TextBlock Text="Saved profiles"
                                                Classes="label" />
-                                    <ComboBox x:Name="ProfilesBox"
+                                    <ComboBox ItemsSource="{Binding SavedProfiles}"
+                                              SelectedItem="{Binding SelectedSavedProfile, Mode=TwoWay}"
                                               PlaceholderText="Select profile"
                                               HorizontalAlignment="Stretch" />
                                 </StackPanel>
@@ -576,32 +570,28 @@
                                       ColumnSpacing="10">
                                     <Button Content="Load"
                                             HorizontalAlignment="Stretch"
-                                            Click="LoadSelectedProfile_Click" />
+                                            Command="{Binding LoadSelectedProfileCommand}" />
                                     <Button Grid.Column="1"
                                             Classes="danger"
                                             Content="Delete"
-                                            Click="DeleteSelectedProfile_Click" />
+                                            Command="{Binding DeleteSelectedProfileCommand}" />
                                 </Grid>
 
                                 <StackPanel>
                                     <TextBlock Text="Profile name"
                                                Classes="label" />
-                                    <TextBox x:Name="ProfileNameBox"
+                                    <TextBox Text="{Binding ProfileNameInput, Mode=TwoWay}"
                                              PlaceholderText="Summer trip" />
                                 </StackPanel>
                                 <Button Content="Load / Create Profile"
                                         HorizontalAlignment="Stretch"
-                                        Click="LoadProfile_Click" />
+                                        Command="{Binding LoadProfileCommand}" />
                             </StackPanel>
                         </Border>
 
                         <StackPanel Grid.Row="2"
-                                    Spacing="8"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom">
-                            <TextBlock x:Name="SaveStateText"
-                                       Text="Autosaves"
-                                       IsVisible="False" />
                             <Button Content="Save"
                                     Width="76"
                                     MinWidth="0"
@@ -609,12 +599,11 @@
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     ToolTip.Tip="Save profile"
-                                    Click="Save_Click" />
+                                    Command="{Binding SaveCommand}" />
                         </StackPanel>
                     </Grid>
 
-                    <Grid x:Name="CollapsedSidebar"
-                          IsVisible="False"
+                    <Grid IsVisible="{Binding IsCollapsedSidebarVisible}"
                           HorizontalAlignment="Stretch"
                           RowDefinitions="Auto,*,Auto">
                         <StackPanel Spacing="16"
@@ -625,7 +614,7 @@
                                     Height="34"
                                     HorizontalAlignment="Center"
                                     ToolTip.Tip="Expand sidebar"
-                                    Click="ToggleSidebar_Click">
+                                    Command="{Binding ToggleSidebarCommand}">
                                 <Path Width="18"
                                       Height="14"
                                       Stretch="Uniform"
@@ -643,8 +632,7 @@
                                     BorderBrush="#2DD4BF"
                                     BorderThickness="1"
                                     CornerRadius="12">
-                                <TextBlock x:Name="CollapsedProfileInitialText"
-                                           Text="D"
+                                <TextBlock Text="{Binding CollapsedProfileInitialText}"
                                            Foreground="#99F6E4"
                                            FontWeight="Bold"
                                            FontSize="18"
@@ -654,8 +642,7 @@
 
                             <StackPanel Spacing="4"
                                         HorizontalAlignment="Center">
-                                <TextBlock x:Name="CollapsedItemCountText"
-                                           Text="0"
+                                <TextBlock Text="{Binding CollapsedItemCountText}"
                                            Foreground="#99F6E4"
                                            FontWeight="Bold"
                                            FontSize="18"
@@ -668,8 +655,7 @@
 
                             <StackPanel Spacing="4"
                                         HorizontalAlignment="Center">
-                                <TextBlock x:Name="CollapsedPackedCountText"
-                                           Text="0"
+                                <TextBlock Text="{Binding CollapsedPackedCountText}"
                                            Foreground="#DDD6FE"
                                            FontWeight="Bold"
                                            FontSize="18"
@@ -688,7 +674,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom"
                                 ToolTip.Tip="Save profile"
-                                Click="Save_Click">
+                                Command="{Binding SaveCommand}">
                             <Path Width="16"
                                   Height="16"
                                   Stretch="Uniform"
@@ -727,17 +713,17 @@
                                 <Button Classes="success"
                                         Content="Pack All"
                                         Padding="12,7"
-                                        Click="PackAllVisible_Click" />
+                                        Command="{Binding PackAllVisibleCommand}" />
                                 <Button Classes="danger"
                                         Content="Unpack All"
                                         Padding="12,7"
-                                        Click="UnpackAllVisible_Click" />
+                                        Command="{Binding UnpackAllVisibleCommand}" />
                                 <Button Content="Expand All"
                                         Padding="12,7"
-                                        Click="ExpandAllCategories_Click" />
+                                        Command="{Binding ExpandAllCategoriesCommand}" />
                                 <Button Content="Collapse All"
                                         Padding="12,7"
-                                        Click="CollapseAllCategories_Click" />
+                                        Command="{Binding CollapseAllCategoriesCommand}" />
                             </StackPanel>
                         </Grid>
 
@@ -749,25 +735,19 @@
                             <TextBlock Text="Search"
                                        Classes="label" />
                             <TextBox Grid.Row="1"
-                                     x:Name="SearchBox"
                                      Height="42"
                                      PlaceholderText="Find an item or category"
-                                     TextChanged="SearchBox_TextChanged" />
+                                     Text="{Binding SearchText, Mode=TwoWay}" />
 
                             <TextBlock Grid.Column="1"
                                        Text="Show"
                                        Classes="label" />
                             <ComboBox Grid.Row="1"
                                       Grid.Column="1"
-                                      x:Name="StatusFilterBox"
                                       Width="150"
                                       Height="42"
-                                      SelectedIndex="0"
-                                      SelectionChanged="StatusFilterBox_SelectionChanged">
-                                <ComboBoxItem Content="All items" />
-                                <ComboBoxItem Content="Unpacked" />
-                                <ComboBoxItem Content="Packed" />
-                            </ComboBox>
+                                      ItemsSource="{Binding StatusFilters}"
+                                      SelectedItem="{Binding SelectedStatusFilter, Mode=TwoWay}" />
 
                             <Button Grid.Row="1"
                                     Grid.Column="2"
@@ -777,11 +757,11 @@
                                     Height="42"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
-                                    Click="ClearFilters_Click" />
+                                    Command="{Binding ClearFiltersCommand}" />
                         </Grid>
 
                         <Grid Grid.Row="2">
-                            <Border x:Name="EmptyStatePanel"
+                            <Border IsVisible="{Binding HasNoVisibleItems}"
                                     Padding="32"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch">
@@ -805,13 +785,11 @@
                                                   HorizontalAlignment="Center"
                                                   VerticalAlignment="Center" />
                                         </Border>
-                                        <TextBlock x:Name="EmptyStateTitle"
-                                                   Text="Start this packing list"
+                                        <TextBlock Text="{Binding EmptyStateTitle}"
                                                    FontSize="26"
                                                    FontWeight="Bold"
                                                    HorizontalAlignment="Center" />
-                                        <TextBlock x:Name="EmptyStateHint"
-                                                   Text="Use the item bar in the header to add the first thing you need to bring."
+                                        <TextBlock Text="{Binding EmptyStateHint}"
                                                    Classes="muted"
                                                    FontSize="14"
                                                    HorizontalAlignment="Center" />
@@ -820,7 +798,8 @@
                             </Border>
 
                             <ScrollViewer>
-                                <ItemsControl x:Name="CategoryGroupsList"
+                                <ItemsControl ItemsSource="{Binding CategoryGroups}"
+                                              IsVisible="{Binding HasVisibleItems}"
                                               Margin="0,6,18,0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -835,11 +814,11 @@
                                             Padding="0"
                                             ClipToBounds="True">
                                         <Grid RowDefinitions="Auto,*">
-                                            <Border Background="{Binding AccentBrush}"
-                                                    Classes="categoryHeader"
+                                            <Button Background="{Binding AccentBrush}"
+                                                    Classes="categoryHeaderButton"
                                                     CornerRadius="{Binding HeaderCornerRadius}"
-                                                    Padding="18,16"
-                                                    PointerPressed="ToggleCategory_Click"
+                                                    HorizontalAlignment="Stretch"
+                                                    Command="{Binding ToggleCommand}"
                                                     ToolTip.Tip="{Binding ToggleToolTip}">
                                                 <Grid RowDefinitions="Auto,Auto"
                                                       RowSpacing="12">
@@ -898,7 +877,7 @@
                                                                    Cursor="Hand" />
                                                     </Grid>
                                                 </Grid>
-                                            </Border>
+                                            </Button>
 
                                             <ItemsControl Grid.Row="1"
                                                           ItemsSource="{Binding Items}"
@@ -969,7 +948,7 @@
                                                                         Classes="icon"
                                                                         Width="42"
                                                                         Height="42"
-                                                                        Click="EditItem_Click"
+                                                                        Command="{Binding EditCommand}"
                                                                         ToolTip.Tip="Edit item"
                                                                         HorizontalAlignment="Center"
                                                                         VerticalAlignment="Center">
@@ -984,7 +963,7 @@
                                                                         Classes="icon danger"
                                                                         Width="42"
                                                                         Height="42"
-                                                                        Click="DeleteItem_Click"
+                                                                        Command="{Binding DeleteCommand}"
                                                                         ToolTip.Tip="Delete item"
                                                                         HorizontalAlignment="Center"
                                                                         VerticalAlignment="Center">
@@ -1009,29 +988,27 @@
                     </Grid>
                 </Border>
 
-                <Border x:Name="StatusToast"
-                        Grid.Row="0"
+                <Border Grid.Row="0"
                         Classes="statusToast"
-                        IsVisible="False"
+                        IsVisible="{Binding StatusToastVisible}"
+                        Opacity="{Binding StatusToastOpacity}"
                         Padding="14"
                         MaxWidth="430"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom">
                     <Grid ColumnDefinitions="*,Auto"
                           ColumnSpacing="12">
-                        <TextBlock x:Name="StatusText"
-                                   Text="Ready."
+                        <TextBlock Text="{Binding StatusMessage}"
                                    Classes="muted"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center" />
-                        <Button x:Name="UndoDeleteButton"
-                                Grid.Column="1"
+                        <Button Grid.Column="1"
                                 Content="Undo"
                                 Classes="primary"
-                                IsVisible="False"
+                                IsVisible="{Binding UndoDeleteVisible}"
                                 Padding="12,7"
                                 VerticalAlignment="Center"
-                                Click="UndoDelete_Click" />
+                                Command="{Binding UndoDeleteCommand}" />
                     </Grid>
                 </Border>
             </Grid>
